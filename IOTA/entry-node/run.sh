@@ -5,5 +5,5 @@ if [[ "$OSTYPE" != "darwin"* && "$EUID" -ne 0 ]]; then
   exit
 fi
 
-echo "Arrancando contenedor..."
+echo "Iniciando contenedor..."
 docker compose up

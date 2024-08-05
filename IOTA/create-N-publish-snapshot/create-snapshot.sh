@@ -10,7 +10,7 @@ if [ -d "snapshot" ]; then
   ./cleanup.sh
 fi
 
-echo "Creando directorio de instantánea y dando propietarios adecuados..."
+echo "Creando directorio de instantánea y cambiando a los propietarios adecuados..."
 mkdir snapshot
 if [[ "$OSTYPE" != "darwin"* ]]; then
   # nonroot user
