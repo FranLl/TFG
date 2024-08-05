@@ -1,0 +1,18 @@
+services:
+  ## HORNET, herramienta principal usada como entry-node (servidor DNS para autopeering)
+  entry-node:
+    container_name: entry-node
+    image: iotaledger/hornet
+    ulimits:
+      nofile:
+        soft: 8192
+        hard: 8192
+    stop_grace_period: 5m
+    ports:
+      - "14626:14626/udp"  # Autopeering port
+    cap_drop:
+      - ALL
+    command:
+      - "--protocol.targetNetworkName=TFG_private_tangle" # Network name for which autopeering is to be used
+      - "--p2p.autopeering.enabled=true"
+      - "--p2p.autopeering.runAsEntryNode=true"

@@ -1,0 +1,42 @@
+secrets:
+ db_root_password:
+  file: ./db_root_password.txt # put MariaDB root password in this file
+ db_database:
+  file: ./db_database.txt # put database name in this file
+ db_user:
+  file: ./db_user.txt # put database username in this file
+ db_password:
+  file: ./db_password.txt # put database user password in this file
+
+
+services:
+ db:
+  container_name: db
+  image: mariadb
+  volumes:
+   - ./data/db:/var/lib/mysql/
+  environment:
+   TZ: Europe/Madrid
+   MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+   MARIADB_DATABASE_FILE: /run/secrets/db_database
+   MARIADB_USER_FILE: /run/secrets/db_user
+   MARIADB_PASSWORD_FILE: /run/secrets/db_password
+  secrets:
+   - db_root_password
+   - db_database
+   - db_user
+   - db_password
+  restart: unless-stopped
+
+ api:
+  container_name: api
+  build: ./api-image
+  volumes:
+   - ./app/:/var/www/html
+  environment:
+   TZ: Europe/Madrid
+  ports:
+   - 80:80
+  restart: unless-stopped
+  depends_on:
+   - db

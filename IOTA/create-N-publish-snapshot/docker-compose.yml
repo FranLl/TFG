@@ -1,0 +1,21 @@
+services:
+  create-snapshot:
+    container_name: create-snapshot
+    image: iotaledger/hornet
+    volumes:
+      - ./conf/protocol_parameters.json:/app/protocol_parameters.json:ro
+      - ./snapshot:/app/snapshots
+    command:
+      - "tool"
+      - "snap-gen"
+      - "--protocolParametersPath=/app/protocol_parameters.json"
+      - "--mintAddress=tst1qq2kvnu9pqzptkggrpqrvltvagccsh6aj2fkdhla7p3lrsy9dwhdzu5l2ye"
+      - "--outputPath=/app/snapshots/full_snapshot.bin"
+
+  httpd:
+    container_name: httpd
+    image: httpd
+    volumes:
+     - ./snapshot:/usr/local/apache2/htdocs/
+    ports:
+     - 80:80

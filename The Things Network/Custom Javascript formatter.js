@@ -13,7 +13,7 @@ function Decoder(bytes, port) {
   };
   
   return {
-    'apikey': '',	// Put your apikey
+    'apikey': '',	// Put your apikey here
     'data': data
   };
 }
