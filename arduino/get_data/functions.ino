@@ -64,7 +64,7 @@ void send_msg( byte msg[] ) {
   /* https://github.com/arduino-libraries/MKRWAN */
   modem.beginPacket();
 
-  modem.write(msg, sizeof(msg));
+  modem.write(msg, 29);
 
   modem.endPacket();
 

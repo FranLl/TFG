@@ -32,10 +32,12 @@ byte msg[29];
 
 
 void setup() {
+  // Descomentar para ver la salida por el puerto serie
   Serial.begin(115200);
 
   // Do not advance until Serial is initialized.
-  while (!Serial);
+  // Uso delay() en vez de while(!Serial) por si se conecta a algo sin puerto serie.
+  delay(2000);
 
   Serial.println( "** Iniciando sensor " + (String)ID + " de la ubicación " + (String)LOC + "... **");
 
@@ -104,7 +106,7 @@ void loop() {
 
   // Print mean values
   Serial.println("\nACCELEROMETER\t\tGYROSCOPE\t\tTEMPERATURE");
-  Serial.println("axe\taye\taze\tgxe\tgye\tgze\tT");
+  Serial.println("ax\tay\taz\tgx\tgy\tgz\tT");
   Serial.print(ax);
   Serial.print('\t');
   Serial.print(ay);

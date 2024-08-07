@@ -25,11 +25,14 @@ class TTNDataController extends Controller
 
         // ESTO ES PARA FORMULARIOS
         // Request validation from The Things Network
-        // https://laravel.com/docs/11.x/validation#quick-writing-the-validation-logic        
+        // https://laravel.com/docs/11.x/validation#quick-writing-the-validation-logic
         $validated = $request->validate([
             'uplink_message.decoded_payload.data.ax' => ['required', 'numeric'],
             'uplink_message.decoded_payload.data.ay' => ['required', 'numeric'],
             'uplink_message.decoded_payload.data.az' => ['required', 'numeric'],
+            'uplink_message.decoded_payload.data.gx' => ['required', 'numeric'],
+            'uplink_message.decoded_payload.data.gy' => ['required', 'numeric'],
+            'uplink_message.decoded_payload.data.gz' => ['required', 'numeric'],
             'uplink_message.decoded_payload.data.temp' => ['required', 'numeric'],
             'uplink_message.decoded_payload.data.id' => ['required', 'numeric'],
             'uplink_message.decoded_payload.data.loc' => ['required', 'numeric']
@@ -47,7 +50,7 @@ class TTNDataController extends Controller
                 'data' => "0x".bin2hex(json_encode($validated['uplink_message']['decoded_payload']['data']) )
             ]
         ];
-        
+
         // Send request to the blockchain (Hornet node) using Guzzle
         // See Laravel HTTP client methods: https://laravel.com/docs/11.x/http-client
         $blockchainResponse = Http::post('http://192.168.2.111:14265/api/core/v2/blocks', $blockRequest);
@@ -65,7 +68,7 @@ class TTNDataController extends Controller
             'sensorLoc' => $validated['uplink_message']['decoded_payload']['data']['loc'],
             'sensorId' => $validated['uplink_message']['decoded_payload']['data']['id']
         ];
-        
+
         // Save data to be displayed on the web
         $block = Block::create($arrayBlockchainResponse); #TODO: creo que no valida la entrada como hago en BlockResource
 
