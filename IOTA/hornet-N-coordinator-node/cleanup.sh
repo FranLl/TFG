@@ -12,7 +12,7 @@ if [ ! -f "variables.env" ]; then
 fi
 
 echo "Eliminando contenedores..."
-docker compose --env-file variables.env down --remove-orphans
+docker compose --env-file variables.env --profile run down --remove-orphans
 
 # Include file
 source variables.env
