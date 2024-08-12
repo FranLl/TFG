@@ -1,5 +1,5 @@
 services:
-  # BOOTSTRAP-NETWORK, allows to generate the initial network status
+  # BOOTSTRAP-NETWORK, allows to generate the initial network status.
   bootstrap-network:
     container_name: bootstrap-network
     image: iotaledger/hornet
@@ -21,7 +21,7 @@ services:
       - bootstrap
 
 
-  # HORNET, herramienta principal. Valida los milestones.
+  # HORNET, main tool. Data storage.
   hornet:
     container_name: ${HORNET_HOSTNAME}
     image: iotaledger/hornet
@@ -34,7 +34,7 @@ services:
       - "15600:15600/tcp"  # Hornet gossip peers
       - "14626:14626/udp"  # Autopeering port
       - "14265:14265/tcp"  # REST HTTP API port
-      - "9029:9029/tcp"    # inx access, IOTA Net? eXtensions
+      - "9029:9029/tcp"    # inx access, IOTA Net eXtensions
     cap_drop:
       - ALL
     volumes:
@@ -48,13 +48,12 @@ services:
       - "--node.alias=${HORNET_HOSTNAME}"
       - "--inx.enabled=true"
       - "--inx.bindAddress=${HORNET_HOSTNAME}:9029"
-#      - "--p2p.identityPrivateKey=1f46fad4f538a031d4f87f490f6bca4319dfd0307636a5759a22b5e8874bd608f9156ba976a12918c16a481c38c88a7b5351b769adc30390e93b6c0a63b09b79"
       - "--debug.enabled=true"
     profiles:
       - run
 
 
-  # INX-DASHBOARD, extensión para la herramienta Hornet. Permite ver información sobre Hornet.
+  # INX-DASHBOARD, Hornet extension.
   inx-dashboard:
     container_name: inx-dashboard
     image: iotaledger/inx-dashboard
@@ -69,13 +68,11 @@ services:
       - "--dashboard.bindAddress=inx-dashboard:8081"
       - "--dashboard.auth.passwordHash=577eb97f8faf2af47ff957b00827d6bfe9d05b810981e3073dc42553505282c1"
       - "--dashboard.auth.passwordSalt=e5d8d0bd3bb9723236177b4713a11580c55b69a51e7055dd11fa1dad3b8f6d6c"
-#      - "--dashboard.auth.identityPrivateKey=1f46fad4f538a031d4f87f490f6bca4319dfd0307636a5759a22b5e8874bd608f9156ba976a12918c16a481c38c88a7b5351b769adc30390e93b6c0a63b09b79"
     profiles:
       - run
 
    
-  # INX-COORDINATOR, extensión para la herramienta Hornet. Permite coordinar los nodos y
-  # el crecimiento de la red. Su tarea es crear milestones a un rango constante.
+  # INX-COORDINATOR, Hornet extension.
   inx-coordinator:
     container_name: inx-coordinator
     image: iotaledger/inx-coordinator

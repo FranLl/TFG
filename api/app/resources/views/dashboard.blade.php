@@ -13,7 +13,6 @@
                 @if($arrayBlocks->isEmpty())
                     <h2>No data</h2>
                 @else
-                    {{-- https://stackoverflow.com/questions/47979448/difference-between-foreach-and-forelse-in-laravel --}}
                     <table class="text-center">
                         <thead>
                             <tr>
@@ -24,6 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- https://stackoverflow.com/questions/47979448/difference-between-foreach-and-forelse-in-laravel --}}
                             @forelse ($arrayBlocks as $block)
                             <tr class="border-t">
                                 <td>{{ $block->created_at }}</td>

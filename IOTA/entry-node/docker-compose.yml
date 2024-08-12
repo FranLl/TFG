@@ -1,5 +1,5 @@
 services:
-  ## HORNET, herramienta principal usada como entry-node (servidor DNS para autopeering)
+  ## HORNET, tool used as entry-node
   entry-node:
     container_name: entry-node
     image: iotaledger/hornet

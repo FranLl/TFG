@@ -1,6 +1,6 @@
 <?php
 
-// In which directory is this controller
+// Controller directory
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -19,11 +19,10 @@ class TTNDataController extends Controller
     public function store(Request $request)
     {
 
-        // ESTO ES PARA VALIDARLO YO MANUALMENTE SIN FORMULARIOS Y SIN QUE MUESTRE EL MENSAJE DE ERROR CON EL VALOR DEL APIKEY
+        // Hardcoded apikey validation
         if ($request['uplink_message']['decoded_payload']['apikey'] != '<clave>' )
             return response('Error bad api key.', 400)->header('Content-Type', 'application/json');
 
-        // ESTO ES PARA FORMULARIOS
         // Request validation from The Things Network
         // https://laravel.com/docs/11.x/validation#quick-writing-the-validation-logic
         $validated = $request->validate([
@@ -53,7 +52,7 @@ class TTNDataController extends Controller
 
         // Send request to the blockchain (Hornet node) using Guzzle
         // See Laravel HTTP client methods: https://laravel.com/docs/11.x/http-client
-        $blockchainResponse = Http::post('http://192.168.2.111:14265/api/core/v2/blocks', $blockRequest);
+        $blockchainResponse = Http::post('http://<IP_nodo_Hornet>:14265/api/core/v2/blocks', $blockRequest);
 
         // Check if there was an error sending data to the blockchain (Hornet node)
         if( $blockchainResponse->failed() )
@@ -70,7 +69,7 @@ class TTNDataController extends Controller
         ];
 
         // Save data to be displayed on the web
-        $block = Block::create($arrayBlockchainResponse); #TODO: creo que no valida la entrada como hago en BlockResource
+        $block = Block::create($arrayBlockchainResponse);
 
         // Check if model was created on the database
         if( !$block->save() )

@@ -13,8 +13,10 @@ function Bytes2Float32(bytes) {
     }
     else
       significand = (significand | (1 << 23)) / (1 << 23);
+      
     return sign * significand * Math.pow(2, exponent);
 }
+
 
 // Main function that preprocesses the data before sending them
 function Decoder(bytes, port) {  
@@ -31,7 +33,7 @@ function Decoder(bytes, port) {
   };
   
   return {
-    'apikey': '57bc434b1e262c8ab768ade0e59f1e37',   // Put your apikey here
+    'apikey': '',   // Put your apikey here
     'data': data
   };
 }

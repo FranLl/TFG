@@ -5,7 +5,7 @@ RUN a2enmod rewrite
 
 # Install nvm, nodejs
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash &&\
-    # Para cargar o recargar el fichero .bashrc con los cambios hechos por la isntalacion
+    # To load the changes to the .bashrc file made by the install.sh script
     . ~/.bashrc &&\
     nvm install 20
 
@@ -16,7 +16,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     mv composer.phar /usr/local/bin/composer &&\
     php -r "unlink('composer-setup.php');"
 
-# Instalar extensiones php-mysql
+# Install and enable php extensions
 RUN docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 
 WORKDIR /var/www/html

@@ -32,11 +32,9 @@ byte msg[29];
 
 
 void setup() {
-  // Descomentar para ver la salida por el puerto serie
   Serial.begin(115200);
 
-  // Do not advance until Serial is initialized.
-  // Uso delay() en vez de while(!Serial) por si se conecta a algo sin puerto serie.
+  // Wait to allow Serial to start
   delay(2000);
 
   Serial.println( "** Iniciando sensor " + (String)ID + " de la ubicación " + (String)LOC + "... **");

@@ -11,7 +11,7 @@ class StoreBlockRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;   // EN EL TUTORIAL ESTA A TRUE
+        return false;
     }
 
     /**
