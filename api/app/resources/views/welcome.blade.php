@@ -18,7 +18,7 @@
                     <div class="flex text-black dark:text-white">
                         <div class="flex-auto" >
                             <h3 class="text-xl font-semibold">
-                                <a href="https://tfg.comiendolomo.com/login">Acceder</a>
+                                <a href="login">Acceder</a>
                             </h3>
                         </div>
                         <div>

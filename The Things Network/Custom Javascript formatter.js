@@ -1,6 +1,9 @@
 function Bytes2Float32(bytes) {
+  // Get the sign
   var sign = (bytes & 0x80000000) ? -1 : 1;
+  // Get the exponent
   var exponent = ((bytes >> 23) & 0xFF) - 127;
+  // Get the significand or mantissa
   var significand = (bytes & ~(-1 << 23));
 
   if (exponent == 128)

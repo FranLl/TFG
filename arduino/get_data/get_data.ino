@@ -12,13 +12,13 @@ String appKey = "";	// Put you appKey
 // AD0 connected to GND => 0x68, AD0 connected to VCC => 0x69.
 GY521 sensor(0x68);
 // Sensitivity Acceleration. 0,1,2,3 ==> 2g 4g 8g 16g.
-#define AS 0
+int as = 0;
 // Sensitivity Gyroscope- 0,1,2,3 ==> 250, 500, 1000, 2000 degrees/second.
-#define GS 0
+int gs = 0;
 
 // Sensor ID and location.
-#define ID 1
-#define LOC 1
+int id = 1;
+int loc = 1;
 
 // Variables to store the data and message to be sent.
 float ax, ay, az;
@@ -27,7 +27,7 @@ float temp;
 byte msg[29];
 
 // Time in milliseconds between each message sent.
-#define msg_time 20000
+int msg_time = 20000;
 
 
 
@@ -37,7 +37,7 @@ void setup() {
   // Wait to allow Serial to start
   delay(2000);
 
-  Serial.println( "** Iniciando sensor " + (String)ID + " de la ubicación " + (String)LOC + "... **");
+  Serial.println( "** Iniciando sensor " + (String)id + " de la ubicación " + (String)loc + "... **");
 
   if (!modem.begin(EU868)) {
     Serial.println("Error al iniciar el módulo LoRa. Por favor, reinicie.");
@@ -61,8 +61,8 @@ void setup() {
     delay(1000);
   }
 
-  sensor.setAccelSensitivity(AS);
-  sensor.setGyroSensitivity(GS);
+  sensor.setAccelSensitivity(as);
+  sensor.setGyroSensitivity(gs);
   // Throttle to force delay between reads.
   sensor.setThrottle();
 
@@ -127,7 +127,7 @@ void loop() {
   sensor.gye += gy;
   sensor.gze += gz;
 
-  fill_msg( msg, ax, ay, az, gx, gy, gz, temp, ID, LOC );
+  fill_msg( msg, ax, ay, az, gx, gy, gz, temp, id, loc );
 
   send_msg( msg );
 
